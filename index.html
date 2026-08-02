@@ -22,29 +22,18 @@
             --radius: 12px;
         }
 
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --surface: #1e293b;
-            --primary: #10b981;
-            --primary-dark: #064e3b;
-            --text-dark: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-light: #334155;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
-            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-dark);
             line-height: 1.5;
-            min-height: 100vh;
         }
 
         /* Top Clean Navbar */
@@ -74,8 +63,8 @@
         }
 
         .swastik-svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             fill: var(--shubh-red);
         }
 
@@ -101,13 +90,12 @@
             border-radius: 8px;
             font-size: 0.95rem;
             outline: none;
-            background: var(--bg-color);
-            color: var(--text-dark);
+            background: #fafafa;
         }
 
         .search-box input:focus {
             border-color: var(--primary);
-            background: var(--surface);
+            background: #fff;
         }
 
         .search-box i {
@@ -121,7 +109,7 @@
         .nav-icons {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.8rem;
         }
 
         .icon-btn {
@@ -132,22 +120,11 @@
             cursor: pointer;
             padding: 0.4rem;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .icon-btn:hover {
             background: var(--bg-color);
             color: var(--primary);
-        }
-
-        /* Mobile Search Input */
-        .mobile-search-bar {
-            display: none;
-            padding: 0.6rem 1rem;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border-light);
         }
 
         /* Slide-Out Side Navigation Drawer */
@@ -237,7 +214,7 @@
         .welcome-header h1 {
             font-size: 2rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--primary-dark);
             margin-bottom: 0.4rem;
         }
 
@@ -316,7 +293,7 @@
         }
 
         .cat-box {
-            background: var(--bg-color);
+            background: #fafafa;
             border: 1px solid var(--border-light);
             border-radius: 10px;
             padding: 1.2rem;
@@ -327,7 +304,7 @@
 
         .cat-box i {
             font-size: 1.6rem;
-            color: var(--shubh-red);
+            color: var(--primary);
             margin-bottom: 0.5rem;
             display: block;
         }
@@ -367,10 +344,358 @@
             outline: none;
             font-size: 1rem;
             font-weight: 600;
-            background: var(--bg-color);
-            color: var(--text-dark);
         }
 
+        .field-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .result-bar {
+            background: #eef7f4;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .result-value {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        /* Deep Footer (MDCalc Style) */
+        footer {
+            background: var(--primary-dark);
+            color: #ffffff;
+            padding: 3rem 1rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-header p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-app {
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            color: var(--gold-accent);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 600px) {
+            .search-box { display: none; }
+            .welcome-header h1 { font-size: 1.5rem; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="brand">
+                <svg class="swastik-svg" viewBox="0 0 100 100">
+                    <path d="M 50,10 L 50,50 L 90,50 L 90,30 M 50,50 L 50,90 L 10,90 L 10,70 M 50,50 L 10,50 L 10,10 L 30,10 M 50,50 L 90,50 L 90,90 L 70,90" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="30" cy="30" r="5" fill="currentColor"/>
+                    <circle cx="70" cy="30" r="5" fill="currentColor"/>
+                    <circle cx="30" cy="70" r="5" fill="currentColor"/>
+                    <circle cx="70" cy="70" r="5" fill="currentColor"/>
+                </svg>
+                <span class="brand-name">BTTOTEK</span>
+            </a>
+
+            <!-- Search Field -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Calculator, Specialty, Category...">
+            </div>
+
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleDrawer()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Slide-Out Drawer Navigation Menu (MDCalc Style) -->
+    <div class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <span class="drawer-title">Menu</span>
+            <button class="close-drawer" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#trending">Trending Tools</a></li>
+            <li><a href="#favorites">Favorites</a></li>
+            <li><a href="#categories">Specialties</a></li>
+            <li><a href="#all">View All</a></li>
+            <div class="menu-divider"></div>
+            <li><a href="#login">Log In / Sign Up</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#faqs">FAQs</a></li>
+            <li><a href="#about">About BTTOTEK</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <!-- Welcome Banner -->
+        <div class="welcome-header">
+            <h1>Welcome to BTTOTEK</h1>
+            <p>Smart, precise, and verified calculation tools for every need.</p>
+        </div>
+
+        <!-- Trending Calculators Card Section -->
+        <div class="card-section" id="trending">
+            <h2 class="card-title">Trending Calculators</h2>
+            <p class="card-subtitle">Most frequently used tools by professionals.</p>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('emi')">Loan EMI Calculator</h3>
+                <p>Calculate your monthly home or personal loan EMI along with interest schedule.</p>
+            </div>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('sip')">SIP Return Calculator</h3>
+                <p>Estimate systematic investment plan returns for long term financial growth.</p>
+            </div>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('bmi')">Body Mass Index (BMI) Tool</h3>
+                <p>Check health metrics, BMI classification, and ideal weight targets.</p>
+            </div>
+
+            <a href="#categories" class="view-all-link">View All Calculators <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Working Calculator Window Section -->
+        <div class="card-section" id="toolWindow">
+            <h2 class="card-title" id="calcTitle">Loan EMI Calculator</h2>
+            <p class="card-subtitle">Instant Browser-based Computation</p>
+
+            <div class="tool-form">
+                <div class="field-group">
+                    <label id="lbl1">Loan Amount (₹)</label>
+                    <input type="number" id="in1" value="500000" oninput="calculate()">
+                </div>
+                <div class="field-group">
+                    <label id="lbl2">Interest Rate (% p.a.)</label>
+                    <input type="number" id="in2" value="8.5" step="0.1" oninput="calculate()">
+                </div>
+                <div class="field-group">
+                    <label id="lbl3">Tenure (Years)</label>
+                    <input type="number" id="in3" value="5" oninput="calculate()">
+                </div>
+            </div>
+
+            <div class="result-bar">
+                <span>Estimated Monthly Payment:</span>
+                <span class="result-value" id="resVal">₹10,258</span>
+            </div>
+        </div>
+
+        <!-- Categories / Specialties Grid Section -->
+        <div class="card-section" id="categories">
+            <h2 class="card-title">Browse by Category</h2>
+            <p class="card-subtitle">Explore utility tools categorized for ease of access.</p>
+
+            <div class="cat-grid">
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-wallet"></i><span>Finance</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-graduation-cap"></i><span>Education</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('bmi')"><i class="fa-solid fa-heart-pulse"></i><span>Health</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('sip')"><i class="fa-solid fa-chart-line"></i><span>Business</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-sliders"></i><span>Utility</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-code"></i><span>Dev Tools</span></a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Deep Clean Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-header">
+                <p><strong>BTTOTEK Solutions</strong> is utilized by thousands of users worldwide for accurate everyday calculations.</p>
+                <div class="app-buttons">
+                    <a href="#" class="btn-app"><i class="fa-brands fa-apple fa-lg"></i> App Store</a>
+                    <a href="#" class="btn-app"><i class="fa-brands fa-google-play fa-lg"></i> Google Play</a>
+                </div>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="#">All Calculators</a></li>
+                        <li><a href="#">Trending</a></li>
+                        <li><a href="#">Favorites</a></li>
+                        <li><a href="#">Specialties</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About BTTOTEK</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Preferences</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 BTTOTEK Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JS Script -->
+    <script>
+        let currentCalc = 'emi';
+
+        function toggleDrawer() {
+            document.getElementById('sideDrawer').classList.toggle('active');
+        }
+
+        function openCalc(type) {
+            currentCalc = type;
+            let title = document.getElementById('calcTitle');
+            if(type === 'emi') {
+                title.innerText = 'Loan EMI Calculator';
+                document.getElementById('lbl1').innerText = 'Loan Amount (₹)';
+                document.getElementById('lbl2').innerText = 'Interest Rate (% p.a.)';
+                document.getElementById('lbl3').innerText = 'Tenure (Years)';
+                document.getElementById('in1').value = 500000;
+                document.getElementById('in2').value = 8.5;
+                document.getElementById('in3').value = 5;
+            } else if(type === 'sip') {
+                title.innerText = 'SIP Return Calculator';
+                document.getElementById('lbl1').innerText = 'Monthly Investment (₹)';
+                document.getElementById('lbl2').innerText = 'Expected Return (% p.a.)';
+                document.getElementById('lbl3').innerText = 'Time Period (Years)';
+                document.getElementById('in1').value = 5000;
+                document.getElementById('in2').value = 12;
+                document.getElementById('in3').value = 10;
+            } else if(type === 'bmi') {
+                title.innerText = 'BMI Health Calculator';
+                document.getElementById('lbl1').innerText = 'Height (cm)';
+                document.getElementById('lbl2').innerText = 'Weight (kg)';
+                document.getElementById('lbl3').innerText = 'Age';
+                document.getElementById('in1').value = 175;
+                document.getElementById('in2').value = 70;
+                document.getElementById('in3').value = 25;
+            }
+            calculate();
+        }
+
+        function calculate() {
+            let v1 = parseFloat(document.getElementById('in1').value) || 0;
+            let v2 = parseFloat(document.getElementById('in2').value) || 0;
+            let v3 = parseFloat(document.getElementById('in3').value) || 0;
+
+            if(currentCalc === 'emi') {
+                let r = v2 / 12 / 100;
+                let n = v3 * 12;
+                if(v1 && r && n) {
+                    let emi = (v1 * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                    document.getElementById('resVal').innerText = '₹' + Math.round(emi).toLocaleString('en-IN');
+                }
+            } else if(currentCalc === 'sip') {
+                let i = v2 / 12 / 100;
+                let n = v3 * 12;
+                if(v1 && i && n) {
+                    let total = v1 * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+                    document.getElementById('resVal').innerText = '₹' + Math.round(total).toLocaleString('en-IN');
+                }
+            } else if(currentCalc === 'bmi') {
+                let h = v1 / 100;
+                if(h && v2) {
+                    let bmi = (v2 / (h * h)).toFixed(1);
+                    let status = bmi < 18.5 ? 'Underweight' : (bmi < 25 ? 'Normal' : 'Overweight');
+                    document.getElementById('resVal').innerText = `${bmi} (${status})`;
+                }
+            }
+        }
+
+        calculate();
+    </script>
+</body>
+</html>
         .field-group input:focus {
             border-color: var(--primary);
         }
