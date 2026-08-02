@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTTOTEK SOLUTIONS - Precision Utility Platform</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f4f6f8;
+            --surface: #ffffff;
+            --primary: #025940;
+            --primary-dark: #013a2a;
+            --shubh-red: #c01224;
+            --gold-accent: #d4af37;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+            --radius: 12px;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --surface: #1e293b;
+            --primary: #10b981;
+            --primary-dark: #064e3b;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-light: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Top Clean Navbar */
+        header {
+            background: var(--surface);
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .swastik-svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--shubh-red);
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Top Search Bar */
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.65rem 1rem 0.65rem 2.6rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            background: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            background: var(--surface);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background: var(--bg-color);
+            color: var(--primary);
+        }
+
+        /* Mobile Search Input */
+        .mobile-search-bar {
+            display: none;
+            padding: 0.6rem 1rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        /* Slide-Out Side Navigation Drawer */
+        .side-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--surface);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+        }
+
+        .side-drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.8rem;
+        }
+
+        .drawer-title {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .close-drawer {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .menu-list li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .menu-list li a:hover {
+            color: var(--primary);
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-light);
+            margin: 0.5rem 0;
+        }
+
+        /* Main Body Content */
+        .main-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Welcome Banner */
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .welcome-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* White Cards Section */
+        .card-section {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            text-align: center;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Trending List Items */
+        .trending-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-item h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+
+        .trending-item h3:hover {
+            text-decoration: underline;
+        }
+
+        .trending-item p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .view-all-link {
+            display: block;
+            text-align: right;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Category Grid Cards */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+        }
+
+        .cat-box {
+            background: var(--bg-color);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .cat-box i {
+            font-size: 1.6rem;
+            color: var(--shubh-red);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .cat-box span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .cat-box:hover {
+            border-color: var(--primary);
+            background: var(--surface);
+        }
+
+        /* Working Interactive Tool Box */
+        .tool-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .field-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        .field-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .result-bar {
+            background: var(--bg-color);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .result-value {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        /* Floating Up/Down Scroll Controls */
+        .scroll-controls {
+            position: fixed;
+            right: 1.2rem;
+            bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 999;
+        }
+
+        .scroll-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .scroll-btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Deep Footer (MDCalc Style) */
+        footer {
+            background: var(--surface);
+            color: var(--text-dark);
+            padding: 3rem 1rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .footer-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-app {
+            background: var(--bg-color);
+            border: 1px solid var(--border-light);
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--text-dark);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            padding-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Language Switcher Button in Footer */
+        .lang-btn-footer {
+            background: var(--bg-color);
+            border: 1px solid var(--border-light);
+            padding: 0.5.rem 1.2rem;
+            border-radius: 20px;
+            color: var(--text-dark);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .search-box { display: none; }
+            .mobile-search-bar { display: block; }
+            .welcome-header h1 { font-size: 1.5rem; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .scroll-controls { right: 0.8rem; bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="brand">
+                <svg class="swastik-svg" viewBox="0 0 100 100">
+                    <path d="M 50,10 L 50,50 L 90,50 L 90,30 M 50,50 L 50,90 L 10,90 L 10,70 M 50,50 L 10,50 L 10,10 L 30,10 M 50,50 L 90,50 L 90,90 L 70,90" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="30" cy="30" r="5" fill="currentColor"/>
+                    <circle cx="70" cy="30" r="5" fill="currentColor"/>
+                    <circle cx="30" cy="70" r="5" fill="currentColor"/>
+                    <circle cx="70" cy="70" r="5" fill="currentColor"/>
+                </svg>
+                <span class="brand-name">BTTOTEK</span>
+            </a>
+
+            <!-- Search Field (PC) -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="pc-search" placeholder="Calculator, Specialty, Category..." onkeyup="filterTools('pc-search')">
+            </div>
+
+            <div class="nav-icons">
+                <!-- Dark Mode Button -->
+                <button class="icon-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+                <!-- Hamburger Menu Button -->
+                <button class="icon-btn" onclick="toggleDrawer()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="mobile-search-bar">
+            <div class="search-box" style="display: block; max-width: 100%;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="mobile-search" placeholder="Search calculators..." onkeyup="filterTools('mobile-search')">
+            </div>
+        </div>
+    </header>
+
+    <!-- Slide-Out Side Navigation Drawer (MDCalc Style) -->
+    <div class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <span class="drawer-title">Menu</span>
+            <button class="close-drawer" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#trending" onclick="toggleDrawer()">Trending Tools</a></li>
+            <li><a href="#categories" onclick="toggleDrawer()">Specialties</a></li>
+            <li><a href="#toolWindow" onclick="toggleDrawer()">Interactive Engine</a></li>
+            <div class="menu-divider"></div>
+            <li><a href="#about" onclick="toggleDrawer()">About BTTOTEK</a></li>
+            <li><a href="#contact" onclick="toggleDrawer()">Contact Us</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <!-- Welcome Banner -->
+        <div class="welcome-header">
+            <h1 id="welcomeTitle">Welcome to BTTOTEK</h1>
+            <p id="welcomeSub">Smart, precise, and verified calculation tools for every need.</p>
+        </div>
+
+        <!-- Trending Calculators Card Section -->
+        <div class="card-section" id="trending">
+            <h2 class="card-title">Trending Calculators</h2>
+            <p class="card-subtitle">Most frequently used tools by professionals.</p>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('emi')">Loan EMI Calculator</h3>
+                <p>Calculate your monthly home or personal loan EMI along with interest schedule.</p>
+            </div>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('sip')">SIP Return Calculator</h3>
+                <p>Estimate systematic investment plan returns for long term financial growth.</p>
+            </div>
+
+            <div class="trending-item">
+                <h3 onclick="openCalc('bmi')">Body Mass Index (BMI) Tool</h3>
+                <p>Check health metrics, BMI classification, and ideal weight targets.</p>
+            </div>
+
+            <a href="#categories" class="view-all-link">View All Calculators <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Working Calculator Window Section -->
+        <div class="card-section" id="toolWindow">
+            <h2 class="card-title" id="calcTitle">Loan EMI Calculator</h2>
+            <p class="card-subtitle">Instant Browser-based Computation</p>
+
+            <div class="tool-form">
+                <div class="field-group">
+                    <label id="lbl1">Loan Amount (₹)</label>
+                    <input type="number" id="in1" value="500000" oninput="calculate()">
+                </div>
+                <div class="field-group">
+                    <label id="lbl2">Interest Rate (% p.a.)</label>
+                    <input type="number" id="in2" value="8.5" step="0.1" oninput="calculate()">
+                </div>
+                <div class="field-group">
+                    <label id="lbl3">Tenure (Years)</label>
+                    <input type="number" id="in3" value="5" oninput="calculate()">
+                </div>
+            </div>
+
+            <div class="result-bar">
+                <span>Estimated Monthly Payment:</span>
+                <span class="result-value" id="resVal">₹10,258</span>
+            </div>
+        </div>
+
+        <!-- Categories / Specialties Grid Section -->
+        <div class="card-section" id="categories">
+            <h2 class="card-title">Browse by Category</h2>
+            <p class="card-subtitle">Explore utility tools categorized for ease of access.</p>
+
+            <div class="cat-grid">
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-wallet"></i><span>Finance</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-graduation-cap"></i><span>Education</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('bmi')"><i class="fa-solid fa-heart-pulse"></i><span>Health</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('sip')"><i class="fa-solid fa-chart-line"></i><span>Business</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-sliders"></i><span>Utility</span></a>
+                <a href="#toolWindow" class="cat-box" onclick="openCalc('emi')"><i class="fa-solid fa-code"></i><span>Dev Tools</span></a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Up / Down Scroll Buttons -->
+    <div class="scroll-controls">
+        <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to Top"><i class="fa-solid fa-arrow-up"></i></button>
+        <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="Scroll to Bottom"><i class="fa-solid fa-arrow-down"></i></button>
+    </div>
+
+    <!-- Deep Clean Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-header">
+                <p><strong>BTTOTEK Solutions</strong> is utilized by thousands of users worldwide for accurate everyday calculations.</p>
+                <div class="app-buttons">
+                    <a href="#" class="btn-app"><i class="fa-brands fa-apple fa-lg"></i> App Store</a>
+                    <a href="#" class="btn-app"><i class="fa-brands fa-google-play fa-lg"></i> Google Play</a>
+                </div>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="#trending">Trending</a></li>
+                        <li><a href="#categories">Specialties</a></li>
+                        <li><a href="#toolWindow">Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" id="about">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About BTTOTEK</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" id="contact">
+                    <h4>Legal & Contact</h4>
+                    <ul>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <!-- Language Switcher Button at Bottom -->
+                <button class="lang-btn-footer" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-globe"></i> Language: <span id="langLabel">English (EN)</span>
+                </button>
+                <p>&copy; 2026 BTTOTEK Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JS Script -->
+    <script>
+        let currentCalc = 'emi';
+        let currentLang = 'EN';
+
+        /* Dark / Light Theme Toggle */
+        function toggleTheme() {
+            let body = document.body;
+            let icon = document.getElementById('themeIcon');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        /* Language Toggle Button in Bottom Footer */
+        function toggleLanguage() {
+            currentLang = currentLang === 'EN' ? 'HI' : 'EN';
+            let label = document.getElementById('langLabel');
+            if (currentLang === 'HI') {
+                label.innerText = 'हिंदी (HI)';
+                document.getElementById('welcomeTitle').innerText = 'BTTOTEK में आपका स्वागत है';
+                document.getElementById('welcomeSub').innerText = 'आपकी हर ज़रूरत के लिए सटीक और सुरक्षित गणना उपकरण।';
+            } else {
+                label.innerText = 'English (EN)';
+                document.getElementById('welcomeTitle').innerText = 'Welcome to BTTOTEK';
+                document.getElementById('welcomeSub').innerText = 'Smart, precise, and verified calculation tools for every need.';
+            }
+        }
+
+        /* Real-Time Filter Search Engine */
+        function filterTools(inputId) {
+            let query = document.getElementById(inputId).value.toLowerCase();
+            let items = document.querySelectorAll('.trending-item, .cat-box');
+            items.forEach(item => {
+                let text = item.innerText.toLowerCase();
+                item.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function toggleDrawer() {
+            document.getElementById('sideDrawer').classList.toggle('active');
+        }
+
+        function openCalc(type) {
+            currentCalc = type;
+            let title = document.getElementById('calcTitle');
+            if(type === 'emi') {
+                title.innerText = 'Loan EMI Calculator';
+                document.getElementById('lbl1').innerText = 'Loan Amount (₹)';
+                document.getElementById('lbl2').innerText = 'Interest Rate (% p.a.)';
+                document.getElementById('lbl3').innerText = 'Tenure (Years)';
+                document.getElementById('in1').value = 500000;
+                document.getElementById('in2').value = 8.5;
+                document.getElementById('in3').value = 5;
+            } else if(type === 'sip') {
+                title.innerText = 'SIP Return Calculator';
+                document.getElementById('lbl1').innerText = 'Monthly Investment (₹)';
+                document.getElementById('lbl2').innerText = 'Expected Return (% p.a.)';
+                document.getElementById('lbl3').innerText = 'Time Period (Years)';
+                document.getElementById('in1').value = 5000;
+                document.getElementById('in2').value = 12;
+                document.getElementById('in3').value = 10;
+            } else if(type === 'bmi') {
+                title.innerText = 'BMI Health Calculator';
+                document.getElementById('lbl1').innerText = 'Height (cm)';
+                document.getElementById('lbl2').innerText = 'Weight (kg)';
+                document.getElementById('lbl3').innerText = 'Age';
+                document.getElementById('in1').value = 175;
+                document.getElementById('in2').value = 70;
+                document.getElementById('in3').value = 25;
+            }
+            calculate();
+        }
+
+        function calculate() {
+            let v1 = parseFloat(document.getElementById('in1').value) || 0;
+            let v2 = parseFloat(document.getElementById('in2').value) || 0;
+            let v3 = parseFloat(document.getElementById('in3').value) || 0;
+
+            if(currentCalc === 'emi') {
+                let r = v2 / 12 / 100;
+                let n = v3 * 12;
+                if(v1 && r && n) {
+                    let emi = (v1 * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+                    document.getElementById('resVal').innerText = '₹' + Math.round(emi).toLocaleString('en-IN');
+                }
+            } else if(currentCalc === 'sip') {
+                let i = v2 / 12 / 100;
+                let n = v3 * 12;
+                if(v1 && i && n) {
+                    let total = v1 * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+                    document.getElementById('resVal').innerText = '₹' + Math.round(total).toLocaleString('en-IN');
+                }
+            } else if(currentCalc === 'bmi') {
+                let h = v1 / 100;
+                if(h && v2) {
+                    let bmi = (v2 / (h * h)).toFixed(1);
+                    let status = bmi < 18.5 ? 'Underweight' : (bmi < 25 ? 'Normal' : 'Overweight');
+                    document.getElementById('resVal').innerText = `${bmi} (${status})`;
+                }
+            }
+        }
+
+        calculate();
+    </script>
+</body>
+</html>
